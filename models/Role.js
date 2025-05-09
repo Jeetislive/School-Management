@@ -1,9 +1,4 @@
-// models/Role.js
-import { DataTypes } from 'sequelize';
-import sequelize from '../utils/sequelize.js';
-import { User } from './User.js';
-import { School } from './School.js';
-
+export default(sequelize,DataTypes) => {
 const Role = sequelize.define('Role', {
     id: {
       type: DataTypes.UUID,
@@ -25,18 +20,5 @@ const Role = sequelize.define('Role', {
   });
 
 // Associations
-Role.associate = (models) => {
-    Role.hasMany(models.User, {
-      foreignKey: 'roleId',
-      sourceKey: 'id',
-      as: 'users',
-    });
-    Role.belongsTo(models.School, {
-      foreignKey: 'schoolId',
-      as: 'school',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
+return Role;
 };
-
-export { Role };

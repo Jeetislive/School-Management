@@ -1,7 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { School } from "./School.js";
-
+export default(sequelize,DataTypes) => {
 const GradingScale = sequelize.define(
   "GradingScale",
   {
@@ -33,15 +30,5 @@ const GradingScale = sequelize.define(
   },
   { timestamps: true }
 );
-
-// Associations
-GradingScale.associate = (models) => {
-  GradingScale.belongsTo(models.School, {
-    foreignKey: "schoolId",
-    targetKey: "id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
+return GradingScale;
 };
-
-export { GradingScale };

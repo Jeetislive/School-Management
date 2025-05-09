@@ -1,7 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { User } from "./User.js";
-
+export default(sequelize,DataTypes) => {
 const RefreshToken = sequelize.define('RefreshToken', {
     id: {
       type: DataTypes.UUID,
@@ -29,14 +26,5 @@ const RefreshToken = sequelize.define('RefreshToken', {
     updatedAt: 'updatedAt',
   });
 
-  // Associations
-  RefreshToken.associate = (models) => {
-    RefreshToken.belongsTo(models.User, {
-      foreignKey: 'userId',
-      as: 'user',
-      onDelete: 'CASCADE',
-      onUpdate: 'NO ACTION',
-    });
-  };
-
-export { RefreshToken };
+return RefreshToken;
+};

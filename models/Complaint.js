@@ -1,7 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { User } from "./User.js";
-import { School } from "./School.js";
+export default(sequelize,DataTypes) => {
 
 const Complaint = sequelize.define('Complaint', {
   id: {
@@ -38,20 +35,5 @@ const Complaint = sequelize.define('Complaint', {
   updatedAt: 'updatedAt',
 });
 
-Complaint.associate = (models) => {
-  Complaint.belongsTo(models.User, {
-    foreignKey: 'userId',
-    as: 'user',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
-
-  Complaint.belongsTo(models.School, {
-    foreignKey: 'schoolId',
-    as: 'school',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
+return Complaint;
 };
-
-export { Complaint };

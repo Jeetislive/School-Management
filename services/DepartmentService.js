@@ -1,4 +1,5 @@
-import { Department } from "../models/Department.js";
+import { db } from "../db/db.js";
+const { Department } = db;
 
 const createDepartment = async (name, schoolId) => {
     try {

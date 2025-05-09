@@ -1,10 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { User } from "./User.js";
-import { School } from "./School.js";
-import { Department } from "./Department.js";
-import { Class } from "./Class.js";
-
+export default(sequelize,DataTypes) => {
 const NoticeBoard = sequelize.define(
   "NoticeBoard",
   {
@@ -65,39 +59,5 @@ const NoticeBoard = sequelize.define(
   { timestamps: true }
 );
 
-// Associations
-NoticeBoard.associate = (models) => {
-  NoticeBoard.belongsTo(models.User, {
-    foreignKey: "userId",
-    targetKey: "id",
-    as: "user",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-
-  NoticeBoard.belongsTo(models.School, {
-    foreignKey: "schoolId",
-    targetKey: "id",
-    as: "school",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-
-  NoticeBoard.belongsTo(models.Department, {
-    foreignKey: "departmentId",
-    targetKey: "id",
-    as: "department",
-    onDelete: "SET NULL",
-    onUpdate: "CASCADE",
-  });
-
-  NoticeBoard.belongsTo(models.Class, {
-    foreignKey: "classId",
-    targetKey: "id",
-    as: "class",
-    onDelete: "SET NULL",
-    onUpdate: "CASCADE",
-  });
+return NoticeBoard;
 };
-
-export { NoticeBoard };

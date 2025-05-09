@@ -1,11 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { User } from "./User.js";
-import { Class } from "./Class.js";
-import { School } from "./School.js";
-import { Assignment } from "./Assignment.js";
-import { ExamSchedule } from "./ExamSchedule.js";
-
+export default(sequelize,DataTypes) => {
 const Result = sequelize.define(
     "Result",
     {
@@ -79,39 +72,5 @@ const Result = sequelize.define(
     },
     { timestamps: true }
   );
-
-  // Associations
-  Result.associate = (models) => {
-    Result.belongsTo(models.User, {
-      foreignKey: "studentId",
-      targetKey: "id",
-      as: "student",
-    });
-    Result.belongsTo(models.User, {
-      foreignKey: "teacherId",
-      targetKey: "id",
-      as: "teacher",
-    });
-    Result.belongsTo(models.Class, {
-      foreignKey: "classId",
-      targetKey: "id",
-      as: "class",
-    });
-    Result.belongsTo(models.School, {
-      foreignKey: "schoolId",
-      targetKey: "id",
-      as: "school",
-    });
-    Result.belongsTo(models.Assignment, {
-      foreignKey: "assignmentId",
-      targetKey: "id",
-      as: "assignment",
-    });
-    Result.belongsTo(models.ExamSchedule, {
-      foreignKey: "examScheduleId",
-      targetKey: "id",
-      as: "examSchedule",
-    });
-  };
-
-export { Result };
+return Result;
+};

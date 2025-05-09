@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { Role } from '../models/Role.js';
+import { db } from "../db/db.js";
+const { Role } = db;
 dotenv.config();
 
 const createToken = (id,role) => {

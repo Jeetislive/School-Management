@@ -1,8 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { User } from "./User.js";
-import { Module } from "./Module.js";
-
+export default(sequelize,DataTypes) => {
 const Permission = sequelize.define(
   "Permission",
   {
@@ -49,23 +45,5 @@ const Permission = sequelize.define(
   { timestamps: true }
 );
 
-// Associations
-Permission.associate = (models) => {
-  Permission.belongsTo(models.User, {
-    foreignKey: "userId",
-    targetKey: "id",
-    as: "recipient",
-  });
-  Permission.belongsTo(models.User, {
-    foreignKey: "setterId",
-    targetKey: "id",
-    as: "setter",
-  });
-  Permission.belongsTo(models.Module, {
-    foreignKey: "moduleId",
-    targetKey: "id",
-    as: "module",
-  });
+return Permission;
 };
-
-export { Permission };

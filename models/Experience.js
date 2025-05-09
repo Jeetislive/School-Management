@@ -1,8 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { User } from "./User.js";
-import { School } from "./School.js";
-
+export default(sequelize,DataTypes) => {
 const Experience = sequelize.define('Experience', {
   id: {
     type: DataTypes.UUID,
@@ -46,21 +42,5 @@ const Experience = sequelize.define('Experience', {
   updatedAt: 'updatedAt',
 });
 
-// Define associations
-Experience.associate = () => {
-  Experience.belongsTo(models.User, {
-    foreignKey: 'userId',
-    as: 'user',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
-
-  Experience.belongsTo(models.School, {
-    foreignKey: 'schoolId',
-    as: 'school',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
+return Experience;
 };
-
-export { Experience };

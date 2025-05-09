@@ -1,4 +1,5 @@
-import { ClassStudent } from "../models/ClassStudent.js";
+import { db } from "../db/db.js";
+const { ClassStudent } = db;
 
 
 const createClassStudent = async (classId, studentId) => {
@@ -8,6 +9,8 @@ const createClassStudent = async (classId, studentId) => {
             console.log('ClassStudent already exists:', existingClassStudent);
             return null; // or throw an log if you prefer
         }
+        console.log(classId, studentId);
+        
         const classStudent = await ClassStudent.create({ classId, studentId });
         return classStudent;
     } catch (err) {

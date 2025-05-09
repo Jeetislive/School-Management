@@ -1,10 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { Class } from "./Class.js";
-import { User } from "./User.js";
-import { School } from "./School.js";
-import { Subject } from "./Subject.js";
-import { Attendance } from "./Attendance.js";
+export default(sequelize,DataTypes) => {
 
 const ClassSchedule = sequelize.define("ClassSchedule", {
   id: {
@@ -65,36 +59,5 @@ const ClassSchedule = sequelize.define("ClassSchedule", {
   createdAt: "createdAt",
   updatedAt: "updatedAt",
 });
-
-ClassSchedule.associate = (models) => {
-  ClassSchedule.belongsTo(models.Class, {
-    foreignKey: "classId",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  ClassSchedule.belongsTo(models.User, {
-    foreignKey: "teacherId",
-    as: "teacher",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  ClassSchedule.belongsTo(models.School, {
-    foreignKey: "schoolId",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  ClassSchedule.belongsTo(models.Subject, {
-    foreignKey: "subjectId",
-    as: "subject",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  ClassSchedule.hasMany(models.Attendance, {
-    foreignKey: "classScheduleId",
-    as: "attendances",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
+return ClassSchedule;
 };
-
-export { ClassSchedule };

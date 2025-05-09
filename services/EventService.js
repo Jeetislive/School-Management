@@ -1,4 +1,5 @@
-import { Event } from "../models/Event.js";
+import { db } from "../db/db.js";
+const { Event } = db;
 
 const createEvent = async ( title, description, date, startTime, classId, schoolId) => {
     try {

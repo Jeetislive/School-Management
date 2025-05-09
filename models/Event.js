@@ -1,8 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { Class } from "./Class.js";
-import { School } from "./School.js";
-
+export default(sequelize,DataTypes) => {
 const Event = sequelize.define(
   "Event",
   {
@@ -49,21 +45,5 @@ const Event = sequelize.define(
     updatedAt: "updatedAt",
   }
 );
-
-Event.associate = () => {
-  Event.belongsTo(models.Class, {
-    foreignKey: "classId",
-    as: "class",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-
-  Event.belongsTo(models.School, {
-    foreignKey: "schoolId",
-    as: "school",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-};
-
-export { Event };
+return Event;
+}

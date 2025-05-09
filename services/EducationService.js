@@ -1,4 +1,5 @@
-import { Education } from "../models/Education.js";
+import { db } from "../db/db.js";
+const { Education } = db;
 
 const createEducation = async (title, institute, startDate, endDate, certificate, userId) => {
     try {

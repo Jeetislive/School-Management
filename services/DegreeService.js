@@ -1,4 +1,5 @@
-import { Degree } from "../models/Degree.js";
+import { db } from "../db/db.js";
+const { Degree } = db;
 
 const createDegree = async (name, schoolId) => {
     try {

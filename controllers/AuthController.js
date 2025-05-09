@@ -1,15 +1,19 @@
 import AuthService from "../services/AuthService.js";
 import jwtTokens from "../utils/jwtTokens.js";
 import { error, success } from "../utils/responseHelper.js";
+import ClassStudentController from "./ClassStudentController.js";
 
 const signupSuperAdmin = async (req, res) => {
     try {
         // const { email, password } = req.payload;
-        const { username, firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth } = req.payload;
-        // console.log("req.payload",role);
+        const { firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth } = req.payload;
+        console.log("req.payload",role);
         
-
+        const username = firstName + lastName;
         const superAdmin = await AuthService.signup(username, firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth);
+        if (role === "student") {
+            await ClassStudentController.createClassStudent(req.payload.classId, superAdmin.id)
+        }
         if (!superAdmin) {
             return error("", 'Error signing up super admin', 400)(res);
         }
@@ -29,6 +33,7 @@ const login = async (req, res) => {
         // Generate tokens here if needed
         const tokens = jwtTokens.createToken(user.id, user.roleId);
         await AuthService.refreshToken(user.id, tokens.refreshToken);
+        
 
         return success({user, accessToken: tokens.accessToken }, 'Login successful', 200)(res);
     } catch (error) {

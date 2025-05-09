@@ -1,4 +1,5 @@
-import { Invite } from "../models/Invite.js";
+import { db } from "../db/db.js";
+const { Invite } = db;
 
 const invite = async (senderId, receiverId, schoolId, roleId, createdAt) => {
     try {

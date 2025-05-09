@@ -1,10 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { Class } from "./Class.js";
-import { School } from "./School.js";
-import { User } from "./User.js";
-import { Subject } from "./Subject.js";
-
+export default(sequelize,DataTypes) => {
 const ExamSchedule = sequelize.define(
   "ExamSchedule",
   {
@@ -73,28 +67,5 @@ const ExamSchedule = sequelize.define(
   { timestamps: true }
 );
 
-ExamSchedule.associate = (models) => {
-  ExamSchedule.belongsTo(models.Class, {
-    foreignKey: "classId",
-    targetKey: "id",
-    onDelete: "RESTRICT", // Prevent deletion if associated with an exam
-  });
-  ExamSchedule.belongsTo(models.School, {
-    foreignKey: "schoolId",
-    targetKey: "id",
-    onDelete: "RESTRICT", // Prevent deletion if associated with an exam
-  });
-  ExamSchedule.belongsTo(models.User, {
-    foreignKey: "invigilatorId",
-    targetKey: "id",
-    as: "invigilator",
-    onDelete: "SET NULL", // Set to null if invigilator is deleted
-  });
-  ExamSchedule.belongsTo(models.Subject, {
-    foreignKey: "subjectId",
-    targetKey: "id",
-    onDelete: "CASCADE", // Delete exam schedule if subject is deleted
-  });
-};
-
-export { ExamSchedule };
+return ExamSchedule;
+}

@@ -1,4 +1,5 @@
-import { NoticeBoard } from "../models/NoticeBoard.js";
+import { db } from "../db/db.js";
+const { NoticeBoard } = db;
 
 
 const createNotice = async (notice, userId, schoolId, classId, departmentId, status, publishedAt, file) => {

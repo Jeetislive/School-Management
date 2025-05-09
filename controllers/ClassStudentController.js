@@ -2,11 +2,15 @@ import { statusCodes } from "../config/constants.js";
 import ClassStudentService from "../services/ClassStudentService.js";
 import { error, success } from "../utils/responseHelper.js";
 
-const createClassStudent = async (classId, studentId) => {
+const createClassStudent = async (req,res) => {
     try {
-        
+        console.log(req.payload);
+        const { classId, studentId } = req.payload;
         const classStudent = await ClassStudentService.createClassStudent(classId, studentId);
-        return classStudent;
+        if (!classStudent) {
+            return error("", "Error creating classStudent", statusCodes.BAD_REQUEST)(res);
+        }
+        return success({classStudent}, 'ClassStudent created successfully', statusCodes.SUCCESS)(res);
     } catch (err) {
         console.log('Error creating classStudent:', err);
         // console.log(err);

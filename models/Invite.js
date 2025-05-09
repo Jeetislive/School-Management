@@ -1,9 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { School } from "./School.js";
-import { User } from "./User.js";
-import { Role } from "./Role.js";
-
+export default(sequelize,DataTypes) => {
 const Invite = sequelize.define(
   "Invite",
   {
@@ -58,13 +53,5 @@ const Invite = sequelize.define(
   },
   { timestamps: true }
 );
-
-// Associations
-Invite.associate = (models) => {
-  Invite.belongsTo(models.School, { foreignKey: "schoolId", targetKey: "id" });
-  Invite.belongsTo(models.User, { foreignKey: "senderId", targetKey: "id" });
-  Invite.belongsTo(models.User, { foreignKey: "receiverId", targetKey: "id" });
-  Invite.belongsTo(models.Role, { foreignKey: "roleId", targetKey: "id" });
+return Invite;
 };
-
-export { Invite };

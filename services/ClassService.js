@@ -1,6 +1,5 @@
-import { Class } from "../models/Class.js";
-import { Department } from "../models/Department.js";
-import { School } from "../models/School.js";
+import { db } from "../db/db.js";
+const { Class } = db;
 
 const createClass = async (name, schoolId, departmentId) => {
     try {

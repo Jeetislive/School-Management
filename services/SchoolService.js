@@ -1,4 +1,5 @@
-import { School } from "../models/School.js";
+import { db } from "../db/db.js";
+const { School } = db;
 
 const createSchool = async (name, address, contactEmail, isActive) => {
     try {

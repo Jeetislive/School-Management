@@ -1,7 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { School } from "./School.js";
-
+export default(sequelize,DataTypes) => {
 const Degree = sequelize.define("Degree", {
   id: {
     type: DataTypes.UUID,
@@ -26,14 +23,5 @@ const Degree = sequelize.define("Degree", {
   updatedAt: 'updatedAt',
 });
 
-Degree.associate = (models) => {
-  Degree.belongsTo(models.School, {
-    foreignKey: "schoolId",
-    targetKey: "id",
-    as: "school",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-};
-
-export { Degree };
+return Degree;
+}

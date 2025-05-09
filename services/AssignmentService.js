@@ -1,4 +1,5 @@
-import { Assignment } from "../models/Assignment.js";
+import { db } from "../db/db.js";
+const { Assignment } = db;
 
 
 const createAssignment = async (title, description, dueDate, teacherId, classId, schoolId, fileURL, subjectId, status, maxPoints) => {

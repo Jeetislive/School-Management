@@ -1,4 +1,5 @@
-import { ClassSchedule } from "../models/ClassShedule.js";
+import { db } from "../db/db.js";
+const { ClassSchedule } = db;
 
 
 const createClassSchedule = async (classId, teacherId, schoolId, subjectId, date, startTime, endTime) => {

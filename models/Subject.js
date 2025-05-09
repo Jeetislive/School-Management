@@ -1,10 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { School } from "./School.js";
-import { ClassSchedule } from "./ClassShedule.js";
-import { ExamSchedule } from "./ExamSchedule.js";
-import { Assignment } from "./Assignment.js";
-
+export default(sequelize,DataTypes) => {
 const Subject = sequelize.define(
   "Subject",
   {
@@ -31,35 +25,5 @@ const Subject = sequelize.define(
   { timestamps: true }
 );
 
-// Associations
-Subject.associate = (models) => {
-  Subject.belongsTo(models.School, {
-    foreignKey: "schoolId",
-    targetKey: "id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  
-  Subject.hasMany(models.ClassSchedule, {
-    foreignKey: "subjectId",
-    sourceKey: "id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-
-  Subject.hasMany(models.ExamSchedule, {
-    foreignKey: "subjectId",
-    sourceKey: "id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-
-  Subject.hasMany(models.Assignment, {
-    foreignKey: "subjectId",
-    sourceKey: "id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
+return Subject;
 };
-
-export { Subject };

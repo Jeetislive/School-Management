@@ -1,8 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { Assignment } from "./Assignment.js";
-import { User } from "./User.js";
-
+export default(sequelize,DataTypes) => {
 const StudentAssignment = sequelize.define(
   "StudentAssignment",
   {
@@ -56,21 +52,5 @@ const StudentAssignment = sequelize.define(
   { timestamps: true }
 );
 
-// Associations
-StudentAssignment.associate = (models) => {
-  StudentAssignment.belongsTo(models.Assignment, {
-    foreignKey: "assignmentId",
-    targetKey: "id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-  
-  StudentAssignment.belongsTo(models.User, {
-    foreignKey: "studentId",
-    targetKey: "id",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
+return StudentAssignment;
 };
-
-export { StudentAssignment };

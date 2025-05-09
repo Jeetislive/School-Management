@@ -7,6 +7,14 @@ const prefix = "/classStudent";
 
 const classStudentRoute = [
   {
+    method: 'POST',
+    path: `${prefix}`,
+    handler: ClassStudentController.createClassStudent,
+    options: {
+      pre: [jwtTokens.verifyToken, jwtTokens.verifyRole('admin')],
+    }
+  },
+  {
     method: 'GET',
     path: `${prefix}/{schoolId}`,
     handler: ClassStudentController.getAllClassStudents,

@@ -1,5 +1,5 @@
-import { School } from "../models/School.js";
-import { Subject } from "../models/Subject.js";
+import { db } from "../db/db.js";
+const { School, Subject } = db;
 
 const createSubject = async (name, code, schoolId) => {
     try {

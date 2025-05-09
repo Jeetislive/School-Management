@@ -1,8 +1,4 @@
-import { DataTypes } from "sequelize";
-import { Class } from "./Class.js";
-import { User } from "./User.js";
-import sequelize from "../utils/sequelize.js";
-
+export default(sequelize,DataTypes) => {
 const ClassStudent = sequelize.define(
   "ClassStudent",
   {
@@ -31,21 +27,5 @@ const ClassStudent = sequelize.define(
     timestamps: true,
   }
 );
-
-ClassStudent.associate = (models) => {
-  ClassStudent.belongsTo(models.Class, {
-    foreignKey: "classId",
-    as: "class",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-
-  ClassStudent.belongsTo(models.User, {
-    foreignKey: "studentId",
-    as: "student",
-    onDelete: "CASCADE",
-    onUpdate: "CASCADE",
-  });
-};
-
-export { ClassStudent };
+return ClassStudent;
+}

@@ -1,15 +1,14 @@
 import bcrypt from 'bcryptjs';
-import { User } from '../models/User.js';
-import { Role } from '../models/Role.js';
-import crypto from 'crypto';
-import { RefreshToken } from '../models/RefreshToken.js';
+import { db } from "../db/db.js";
+const { RefreshToken, User ,Role } = db;
 
-const signup = async (firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth) => {
+
+const signup = async (username,firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth) => {
     try {
-        // console.log(username,firstName, lastName, email, password, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth);
+        console.log(username,firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth);
         
         const hashedPassword = await bcrypt.hash(password, 10);
-        const tempPassword = Math.random().toString(36).slice(-8);
+        tempPassword = Math.random().toString(36).slice(-8);
         const tempPasswordHash = await bcrypt.hash(tempPassword, 10);
         // Check if the user already exists 
         const existingUser = await User.findOne({ where: { email } });
@@ -18,17 +17,20 @@ const signup = async (firstName, lastName, email, password, tempPassword, school
             return null;
         }
         const userCount = await User.count();
+        console.log(userCount);
+        
         if (userCount < 1) {
             console.log('Super admin already exists');
             return null;
         }else {
             isTempPassword = "";
             system_defined = true;
+            console.log(role)
         }
         // Check if the role is valid (assuming you have a Role model)
         const roleName = await Role.findOrCreate({
             where: { title: role },
-            defaults: { title: role, schoolId: schoolId || crypto.randomUUID() },
+            defaults: { title: role, schoolId: schoolId || null },
         });
         // Create the user
         const user = await User.create({

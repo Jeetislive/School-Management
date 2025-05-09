@@ -10,9 +10,9 @@ const invite = async (req, res) => {
         let classStudentCreation;
         const { firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth, classId } = req.payload;
         const senderId = req.auth.credentials.id;
-
+        const username =  firstName + lastName;
         // console.log("req.payload",req.payload);
-        const user = await AuthService.signup(firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth);
+        const user = await AuthService.signup(username,firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth);
         if (!user) {
             return error("", `Error inviting ${role}`, 400)(res);
         }

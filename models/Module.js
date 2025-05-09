@@ -1,8 +1,4 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../utils/sequelize.js";
-import { Permission } from "./Permission.js";
-import { School } from "./School.js";
-
+export default(sequelize,DataTypes) => {
 const Module = sequelize.define(
   "Module",
   {
@@ -31,15 +27,5 @@ const Module = sequelize.define(
   { timestamps: true }
 );
 
-// Associations
-Module.associate = (models) => {
-  Module.hasMany(models.Permission, {
-    foreignKey: "moduleId",
-    sourceKey: "id",
-    as: "permissions",
-    onDelete: "CASCADE", // If a module is deleted, delete related permissions
-    onUpdate: "CASCADE", // If module ID is updated, update it in the permissions
-  });
+return Module;
 };
-
-export { Module };

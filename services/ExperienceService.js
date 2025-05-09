@@ -1,4 +1,5 @@
-import { Experience } from "../models/Experience.js";
+import { db } from "../db/db.js";
+const { Experience } = db;
 
 const createExperience = async (organization_name, position, startDate, endDate, userId, schoolId) => {
     try {
