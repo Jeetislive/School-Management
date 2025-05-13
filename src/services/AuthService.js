@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { db } from "../db/db.js";
-const { RefreshToken, User ,Role } = db;
+const { RefreshToken, User ,Role, School } = db;
 
 
 const signup = async (username,firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth) => {
@@ -8,6 +8,7 @@ const signup = async (username,firstName, lastName, email, password, tempPasswor
         console.log(username,firstName, lastName, email, password, tempPassword, schoolId, address, phone, specialization, rollNumber, role, parentEmail, isActive, isTempPassword, system_defined, departmentId, profilePicture, gender, dateOfBirth);
         
         const hashedPassword = await bcrypt.hash(password, 10);
+        let finalSchoolId;
         tempPassword = Math.random().toString(36).slice(-8);
         const tempPasswordHash = await bcrypt.hash(tempPassword, 10);
         // Check if the user already exists 
@@ -19,18 +20,30 @@ const signup = async (username,firstName, lastName, email, password, tempPasswor
         const userCount = await User.count();
         console.log(userCount);
         
-        if (userCount < 1) {
+        if (userCount >= 1) {
             console.log('Super admin already exists');
             return null;
-        }else {
+        } else {
+            const [school] = await School.findOrCreate({
+            where: { name: "Default School" },
+            defaults: {
+          id: crypto.randomUUID(),
+          name: "Default School",
+          address: "Default School",
+          contactEmail: "defaultSchool@gmail.com",
+          gradeScaleId: null,
+          isActive: true,
+        },
+      });
             isTempPassword = "";
             system_defined = true;
+            finalSchoolId = school.id;
             console.log(role)
         }
         // Check if the role is valid (assuming you have a Role model)
         const roleName = await Role.findOrCreate({
             where: { title: role },
-            defaults: { title: role, schoolId: schoolId || null },
+            defaults: { title: role, schoolId: finalSchoolId || null },
         });
         // Create the user
         const user = await User.create({
@@ -40,7 +53,7 @@ const signup = async (username,firstName, lastName, email, password, tempPasswor
             email,
             password: userCount === 0 ? hashedPassword : tempPasswordHash,
             tempPassword: userCount === 0 ? "" : tempPassword,
-            schoolId,
+            schoolId: userCount === 0 ? finalSchoolId : schoolId,
             address,
             phone,
             specialization,

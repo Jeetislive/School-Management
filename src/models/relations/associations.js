@@ -130,7 +130,7 @@ const setupAssociations = () => {
   Experience.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
   GradingScale.belongsTo(School, { foreignKey: "schoolId", targetKey: "id" });
   GradingScale.hasOne(School, {
-    foreignKey: "gradingScaleId",
+    foreignKey: "gradeScaleId",
     sourceKey: "id",
     as: "school",
   });
@@ -255,7 +255,7 @@ const setupAssociations = () => {
     as: "permissions",
   });
   School.belongsTo(GradingScale, {
-    foreignKey: "gradingScaleId",
+    foreignKey: "gradeScaleId",
     targetKey: "id",
     as: "gradingScale",
   });

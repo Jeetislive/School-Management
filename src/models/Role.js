@@ -16,7 +16,7 @@ const Role = sequelize.define('Role', {
     },
   }, {
     tableName: 'Role',
-    timestamps: false,
+    timestamps: true,
   });
 
 // Associations
